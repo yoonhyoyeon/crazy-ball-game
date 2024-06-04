@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Test from './components/Test';
 
 const Hello = styled.div`
   color: red;
@@ -7,9 +9,15 @@ const Hello = styled.div`
 `;
 function App() {
   return (
-    <div className="App">
-      <Hello>init_project</Hello>
-    </div>
+    <BrowserRouter>
+      <Hello>공통</Hello>
+      <Routes>
+					<Route path="/" element={<h2>hello world!:)</h2>}></Route>
+					<Route path="/test/:id" element={<Test />}></Route>
+					<Route path="*" element={<h3>not found</h3>}></Route>
+				</Routes>
+    </BrowserRouter>
+    
   );
 }
 
