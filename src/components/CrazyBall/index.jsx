@@ -40,7 +40,8 @@ const CrazyBall = () => {
 
     const checkPlayerOut = useMemo(() => {
         return (playerInfo.x<0 || playerInfo.x>MAX_X-PLAYER_SIZE || playerInfo.y<0 || playerInfo.y>MAX_Y-PLAYER_SIZE);
-    });
+    }, [playerInfo]);
+
     const onClickGround = (e) => {
         setClickPos({
             x: e.nativeEvent.offsetX,
@@ -74,13 +75,21 @@ const CrazyBall = () => {
         setBallList((prev) => [...prev, newBall]);
     };
     const moveBall = (idx) => {
-        
         const BallNewList = [...ballList];
         const BallNewInfo = BallNewList[idx];
         console.log(idx);
         BallNewInfo.x = BallNewInfo.x + BallNewInfo.m_x;
         BallNewInfo.y = BallNewInfo.y + BallNewInfo.m_y;
-        
+        if(BallNewInfo.x<0 || BallNewInfo.x>MAX_X-BALL_SIZE) {
+            BallNewInfo.x = BallNewInfo.x - BallNewInfo.m_x;
+            BallNewInfo.y = BallNewInfo.y - BallNewInfo.m_y;
+            BallNewInfo.m_x *= -1;
+        }
+        else if(BallNewInfo.y<0 || BallNewInfo.y>MAX_Y-BALL_SIZE) {
+            BallNewInfo.x = BallNewInfo.x - BallNewInfo.m_x;
+            BallNewInfo.y = BallNewInfo.y - BallNewInfo.m_y;
+            BallNewInfo.m_y *= -1;
+        }
         setBallList(BallNewList);
     }
 
