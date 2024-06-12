@@ -1,9 +1,9 @@
 import * as S from './style';
-import { MAX_X, MAX_Y, BALL_SIZE, randomNum, randomColor, getMoveInfo, BALL_SPEED } from 'utils';
+import { MAX_X, MAX_Y, BALL_SIZE, randomNum, randomColor, getMoveInfo, BALL_SPEED, PLAYER_SIZE } from 'utils';
 import { useInterval } from 'hooks';
-import { memo, useEffect, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 
-const Ball = memo(({isPlaying}) => {
+const Ball = memo(({isPlaying, playerX, playerY, gameOver}) => {
     const [info, setInfo] = useState(() => {
         const newBall = {
             x: randomNum(0, MAX_X-BALL_SIZE),
@@ -28,6 +28,7 @@ const Ball = memo(({isPlaying}) => {
     }, isPlaying ? 8 : null);
 
     const moveBall = () => {
+        if(isBumpedOnPlayer) gameOver();
         const newInfo = {
             ...info,
             x: info.x + info.m_x,
@@ -44,9 +45,12 @@ const Ball = memo(({isPlaying}) => {
             newInfo.y = newInfo.y - newInfo.m_y;
             newInfo.m_y *= -1;
         }
-
         setInfo(newInfo);
     }
+
+    const isBumpedOnPlayer = useMemo(() => {
+        return playerX+PLAYER_SIZE>info.x && playerX<info.x+BALL_SIZE && playerY+PLAYER_SIZE>info.y && playerY<info.y+BALL_SIZE;
+    }, [playerX, playerY, info]);
 
     return (
         <S.BallCircle style={{top: info.y+'px', left: info.x+'px'}} bgColor={info.bgColor} size={BALL_SIZE}/>

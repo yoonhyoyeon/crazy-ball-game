@@ -4,7 +4,7 @@ import { PLAYER_SIZE } from 'utils';
 
 const Player = memo(({info, setInfo}) => {
     return (
-        <S.PlayerCircle style={{top: info.y+'px', left: info.x+'px'}} size={PLAYER_SIZE}/>
+        <S.PlayerCircle style={{top: info.y+'px', left: info.x+'px'}} size={PLAYER_SIZE} die={info.die} bgColor={info.bgColor}/>
     );
 });
 
