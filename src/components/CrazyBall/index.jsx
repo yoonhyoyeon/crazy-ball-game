@@ -19,9 +19,9 @@ const CrazyBall = () => {
     const [playerInfo, setPlayerInfo] = useState({x: MAX_X/2, y: MAX_Y/2, moving: false, m_x: 0, m_y: 0, speed: PLAYER_SPEED});
     const [ballCnt, setBallCnt] = useState(0);
     const {time, setWork} = useTimer(0);
-
+    
     useInterval(() => {
-        if((clickPos.x>=playerInfo.x-1.5 && clickPos.x<=playerInfo.x+PLAYER_SIZE+1.5 && clickPos.y>=playerInfo.y-1.5 && clickPos.y<=playerInfo.y+PLAYER_SIZE+1.5) || checkPlayerOut) {
+        if((clickPos.x>=playerInfo.x-1 && clickPos.x<=playerInfo.x+PLAYER_SIZE+1 && clickPos.y>=playerInfo.y-1 && clickPos.y<=playerInfo.y+PLAYER_SIZE+1) || checkPlayerOut) {
             setPlayerInfo((prev) => ({
                 ...prev,
                 moving: false,
@@ -36,7 +36,7 @@ const CrazyBall = () => {
                 y: prev.y + prev.m_y
             }));
         }
-    }, playerInfo.moving ? 5 : null);
+    }, playerInfo.moving ? 8 : null);
 
     const checkPlayerOut = useMemo(() => {
         return (playerInfo.x<0 || playerInfo.x>MAX_X-PLAYER_SIZE || playerInfo.y<0 || playerInfo.y>MAX_Y-PLAYER_SIZE);

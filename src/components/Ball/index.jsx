@@ -1,5 +1,5 @@
 import * as S from './style';
-import { MAX_X, MAX_Y, BALL_SIZE, randomNum, randomColor, getMoveInfo } from 'utils';
+import { MAX_X, MAX_Y, BALL_SIZE, randomNum, randomColor, getMoveInfo, BALL_SPEED } from 'utils';
 import { useInterval } from 'hooks';
 import { memo, useEffect, useState } from 'react';
 
@@ -11,7 +11,7 @@ const Ball = memo(({isPlaying}) => {
             m_x: 0,
             m_y: 0,
             bgColor: randomColor(),
-            speed: 1.5
+            speed: BALL_SPEED
         }
         const targetPos = {
             x: randomNum(0, MAX_X-BALL_SIZE),
@@ -25,7 +25,7 @@ const Ball = memo(({isPlaying}) => {
     });
     useInterval(() => {
         moveBall();
-    }, isPlaying ? 5 : null);
+    }, isPlaying ? 8 : null);
 
     const moveBall = () => {
         const newInfo = {

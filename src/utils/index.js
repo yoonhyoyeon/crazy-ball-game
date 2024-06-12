@@ -2,8 +2,8 @@ export const MAX_X = 1000;
 export const MAX_Y = 800;
 export const PLAYER_SIZE = 20;
 export const BALL_SIZE = 30;
-export const PLAYER_SPEED = 1.5;
-export const BALL_SPEED = 1.5;
+export const PLAYER_SPEED = 2;
+export const BALL_SPEED = 2;
 
 export const randomNum = (min, max) => Math.floor(Math.random()*(max+1-min))+min;
 
