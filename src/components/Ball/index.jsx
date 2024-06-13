@@ -53,7 +53,7 @@ const Ball = memo(({isPlaying, playerX, playerY, gameOver}) => {
     }, [playerX, playerY, info]);
 
     return (
-        <S.BallCircle style={{top: info.y+'px', left: info.x+'px'}} bgColor={info.bgColor} size={BALL_SIZE}/>
+        <S.BallCircle style={{top: info.y+'px', left: info.x+'px'}} $bgColor={info.bgColor} $size={BALL_SIZE}/>
     );
 });
 

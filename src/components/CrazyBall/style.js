@@ -23,6 +23,7 @@ export const RouteBackground = styled.div`
 export const RouteWrap = styled.div`
     width: 380px;
     display: flex;
+    align-items: center;
     flex-direction: column;
     padding: 50px 100px;
     background-color:  #fff;
