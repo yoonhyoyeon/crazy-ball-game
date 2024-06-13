@@ -1,24 +1,25 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import { Link } from 'react-router-dom';
 
-export const MainPageLayout = styled.div`
-    position: absolute;
+const scaleAnimation = keyframes`
+    0% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(0.95);
+    }
+`;
+
+export const LogoImg = styled.img`
     width: 100%;
-    height: 100%;
+    margin: 10px 0 40px 0;
+    animation: ${scaleAnimation} .8s infinite alternate;
+`;
+export const StyledLink = styled(Link)`
     display: flex;
-    justify-content: center;
     align-items: center;
-    background-color: rgba(0,0,0, .3);
-    z-index: 100;
-`;
-export const MainPageBox = styled.div`
-    width: 380px;
-    display: flex;
-    flex-direction: column;
-    padding: 50px 100px;
-    background-color:  #fff;
-    border-radius: 10px;
-`;
-export const Btn = styled.button`
+    justify-content: center;
+    text-decoration: none;
     width: 100%;
     height: 43px;
     margin-bottom: 10px;
@@ -28,4 +29,9 @@ export const Btn = styled.button`
     border: 2px solid #f76e96;
     cursor: pointer;
     transition: all.2s ease;
+    &:hover {
+        background-color: #f76e96;
+        color: #fff;
+        font-weight: bold;
+    }
 `;

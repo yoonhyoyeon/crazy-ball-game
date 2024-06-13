@@ -80,13 +80,18 @@ const CrazyBall = () => {
             {
                 Array(ballCnt).fill().map((v, i) => <Ball isPlaying={isPlaying} playerX={playerInfo.x} playerY={playerInfo.y} gameOver={gameOver} key={i}/>)
             }
-            <Routes>
-                <Route path="/" element={<MainPage />}></Route>
-                <Route path="/record" element={<RecordPage />}></Route>
-                <Route path="/result" element={<ResultPage />}></Route>
-                <Route path="/playing" element={<PlayingPage />}></Route>
-                <Route path="*" element={<NotFoundPage />}></Route>
-            </Routes>
+            <S.RouteBackground>
+                <S.RouteWrap>
+                    <Routes>
+                        <Route path="/" element={<MainPage />}></Route>
+                        <Route path="/record" element={<RecordPage />}></Route>
+                        <Route path="/result" element={<ResultPage />}></Route>
+                        <Route path="/playing" element={<PlayingPage />}></Route>
+                        <Route path="*" element={<NotFoundPage />}></Route>
+                    </Routes>
+                </S.RouteWrap>
+            </S.RouteBackground>
+            
         </S.GameLayout>
     );
 };
