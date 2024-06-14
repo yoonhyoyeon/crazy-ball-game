@@ -1,11 +1,10 @@
 import { useState, useMemo, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { MAX_X, MAX_Y, PLAYER_SPEED, BALL_SPEED, getMoveInfo, PLAYER_SIZE, randomNum, randomColor, BALL_SIZE } from 'utils';
-import { useTimer, useInterval } from 'hooks';
+import { useInterval } from 'hooks';
 import MainPage from 'pages/MainPage';
 import RecordPage from 'pages/RecordPage';
 import ResultPage from 'pages/ResultPage';
-import PlayingPage from 'pages/PlayingPage';
 import NotFoundPage from 'pages/NotFoundPage';
 import Timer from 'components/Timer';
 import Player from 'components/Player';
@@ -19,7 +18,18 @@ const CrazyBall = () => {
     const [playerInfo, setPlayerInfo] = useState({x: MAX_X/2, y: MAX_Y/2, moving: false, m_x: 0, m_y: 0, speed: PLAYER_SPEED, die: false, bgColor: 'red'});
     const [ballCnt, setBallCnt] = useState(1);
     const [time, setTime] = useState(0);
+    const [pause, setPause] = useState(false);
+    const navigate = useNavigate();
     
+    const handleKeyDown = (e) => {
+        if(e.code==='Escape') pauseGame();
+        else if(e.code==='KeyS') ;
+    }
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [])
+
     useInterval(() => {
         if((clickPos.x>=playerInfo.x-1 && clickPos.x<=playerInfo.x+PLAYER_SIZE+1 && clickPos.y>=playerInfo.y-1 && clickPos.y<=playerInfo.y+PLAYER_SIZE+1) || checkPlayerOut) {
             setPlayerInfo((prev) => ({
@@ -36,7 +46,7 @@ const CrazyBall = () => {
                 y: prev.y + prev.m_y
             }));
         }
-    }, playerInfo.moving&&isPlaying ? 8 : null); //플레이어 위치 변경 interval
+    }, playerInfo.moving&&isPlaying&&!pause ? 8 : null); //플레이어 위치 변경 interval
 
     const addBall = () => {
         setBallCnt((prev) => prev+1);  
@@ -44,7 +54,7 @@ const CrazyBall = () => {
     useInterval(() => {
         setTime((prev) => prev + 1);
         if(time%3===0) addBall();
-    }, isPlaying ? 1000 : null); // 타이머 & 3초간격 공 생성 interval
+    }, isPlaying&&!pause ? 1000 : null); // 타이머 & 3초간격 공 생성 interval
 
     const onClickGround = (e) => {
         setClickPos({
@@ -64,6 +74,7 @@ const CrazyBall = () => {
     }, [playerInfo]); //플레이어 맵 이탈 여부 확인
 
     const gameOver = () => {
+        navigate('/result');
         setIsPlaying(false);
         setPlayerInfo((prev) => ({
             ...prev,
@@ -71,21 +82,34 @@ const CrazyBall = () => {
         }));
         console.log('게임 끝');
     } // 게임 종료
-    
+
+    const gameReset = () => {
+        setPlayerInfo((prev) => ({
+            ...prev,
+            x: MAX_X/2, y: MAX_Y/2, moving: false, m_x: 0, m_y: 0, die: false
+        }));
+        setBallCnt(0);
+        setTime(0);
+        setIsPlaying(true);
+    }
+
+    const pauseGame = () => {
+        setPause((prev) => !prev);
+    }
 
     return (
-        <S.GameLayout onClick={(e) => isPlaying ? onClickGround(e) : null}>
+        <S.GameLayout onClick={(e) => isPlaying&&!pause ? onClickGround(e) : null}>
             <Timer time={time} />
             <Player info={playerInfo} setInfo={setPlayerInfo}/>
             {
-                Array(ballCnt).fill().map((v, i) => <Ball isPlaying={isPlaying} playerX={playerInfo.x} playerY={playerInfo.y} gameOver={gameOver} key={i}/>)
+                Array(ballCnt).fill().map((v, i) => <Ball isPlaying={isPlaying} pause={pause} playerX={playerInfo.x} playerY={playerInfo.y} gameOver={gameOver} key={i}/>)
             }
             {
                 isPlaying ? null :
                 <S.RouteBackground>
                     <S.RouteWrap>
                         <Routes>
-                            <Route path="/" element={<MainPage />}></Route>
+                            <Route path="/" element={<MainPage gameReset={gameReset}/>}></Route>
                             <Route path="/record" element={<RecordPage />}></Route>
                             <Route path="/result" element={<ResultPage time={time}/>}></Route>
                             <Route path="*" element={<NotFoundPage />}></Route>

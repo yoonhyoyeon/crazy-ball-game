@@ -3,7 +3,7 @@ import { MAX_X, MAX_Y, BALL_SIZE, randomNum, randomColor, getMoveInfo, BALL_SPEE
 import { useInterval } from 'hooks';
 import { memo, useMemo, useState } from 'react';
 
-const Ball = memo(({isPlaying, playerX, playerY, gameOver}) => {
+const Ball = memo(({isPlaying, pause, playerX, playerY, gameOver}) => {
     const [info, setInfo] = useState(() => {
         const newBall = {
             x: randomNum(0, MAX_X-BALL_SIZE),
@@ -25,7 +25,7 @@ const Ball = memo(({isPlaying, playerX, playerY, gameOver}) => {
     });
     useInterval(() => {
         moveBall();
-    }, isPlaying ? 8 : 8);
+    }, pause ? null : 8);
 
     const moveBall = () => {
         if(isPlaying && isBumpedOnPlayer) gameOver();

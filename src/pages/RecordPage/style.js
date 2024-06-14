@@ -19,6 +19,8 @@ export const RecordList = styled.ol`
 `;
 export const RecordRankText = styled.span`
     flex: 1;
+    font-weight: bold;
+    color: #959595;
 `;
 export const RecordText = styled.span`
     flex: 3;
@@ -30,9 +32,12 @@ export const RecordItem = styled.li`
     padding: 10px;
     background-color: #fff;
     box-sizing: border-box;
-    border-bottom: 1px solid #e5e5e5;
+    border: 1px solid ${({$selected}) => $selected ? '#f76e96' : '#e5e5e5'};
     &:nth-child(2n) {
         background-color: #f5f5f5;
+    }
+    &:nth-child(1) ${RecordRankText} {
+        color: #000;
     }
     &:nth-child(2) ${RecordRankText} {
         color: #6e96f7;
@@ -42,6 +47,10 @@ export const RecordItem = styled.li`
     }
     &:nth-child(4) ${RecordRankText} {
         color: #f76e96;
+    }
+    &:not(:first-child):hover {
+        border: 1px solid #f76e96;
+        cursor: pointer;
     }
 `;
 export const RecordLabel = styled(RecordItem)`
