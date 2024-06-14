@@ -7,6 +7,7 @@ const MainPage = ({gameReset}) => {
             <S.LogoImg src={logoImgFile} />
             <S.StyledLink onClick={gameReset} to='/result'>Game Start</S.StyledLink>
             <S.StyledLink to='/record'>Game Record</S.StyledLink>
+            <S.StyledLink to='/color'>Set Player Color</S.StyledLink>
         </>
     );
 };

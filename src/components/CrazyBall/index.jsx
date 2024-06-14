@@ -5,6 +5,7 @@ import { useInterval } from 'hooks';
 import MainPage from 'pages/MainPage';
 import RecordPage from 'pages/RecordPage';
 import ResultPage from 'pages/ResultPage';
+import ColorPage from 'pages/ColorPage';
 import NotFoundPage from 'pages/NotFoundPage';
 import Timer from 'components/Timer';
 import Player from 'components/Player';
@@ -15,7 +16,7 @@ import * as S from './style';
 const CrazyBall = () => {
     const [isPlaying, setIsPlaying] = useState(true);
     const [clickPos, setClickPos] = useState({x: null, y: null});
-    const [playerInfo, setPlayerInfo] = useState({x: MAX_X/2, y: MAX_Y/2, moving: false, m_x: 0, m_y: 0, speed: PLAYER_SPEED, die: false, bgColor: 'red'});
+    const [playerInfo, setPlayerInfo] = useState({x: MAX_X/2, y: MAX_Y/2, moving: false, m_x: 0, m_y: 0, speed: PLAYER_SPEED, die: false, bgColor: '#ff0000'});
     const [ballCnt, setBallCnt] = useState(1);
     const [time, setTime] = useState(0);
     const [pause, setPause] = useState(false);
@@ -23,12 +24,17 @@ const CrazyBall = () => {
     
     const handleKeyDown = (e) => {
         if(e.code==='Escape') pauseGame();
-        else if(e.code==='KeyS') ;
     }
     useEffect(() => {
         window.addEventListener('keydown', handleKeyDown);
+        if(localStorage.getItem('playerColor')) {
+            setPlayerInfo((prev) => ({
+                ...prev,
+                bgColor: localStorage.getItem('playerColor'),
+            }));
+        }
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [])
+    }, []);
 
     useInterval(() => {
         if((clickPos.x>=playerInfo.x-1 && clickPos.x<=playerInfo.x+PLAYER_SIZE+1 && clickPos.y>=playerInfo.y-1 && clickPos.y<=playerInfo.y+PLAYER_SIZE+1) || checkPlayerOut) {
@@ -75,9 +81,14 @@ const CrazyBall = () => {
 
     const gameOver = () => {
         navigate('/result');
-        setIsPlaying(false);
+        setPause(true);
+        setTimeout(() => {
+            setIsPlaying(false);
+            setPause(false);
+        },1000);
         setPlayerInfo((prev) => ({
             ...prev,
+            moveing: false,
             die: true
         }));
         console.log('게임 끝');
@@ -91,6 +102,7 @@ const CrazyBall = () => {
         setBallCnt(0);
         setTime(0);
         setIsPlaying(true);
+        setPause(false);
     }
 
     const pauseGame = () => {
@@ -112,6 +124,7 @@ const CrazyBall = () => {
                             <Route path="/" element={<MainPage gameReset={gameReset}/>}></Route>
                             <Route path="/record" element={<RecordPage />}></Route>
                             <Route path="/result" element={<ResultPage time={time}/>}></Route>
+                            <Route path="/color" element={<ColorPage playerInfo={playerInfo} setPlayerInfo={setPlayerInfo}/>}></Route>
                             <Route path="*" element={<NotFoundPage />}></Route>
                         </Routes>
                     </S.RouteWrap>

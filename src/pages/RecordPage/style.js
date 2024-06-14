@@ -32,7 +32,8 @@ export const RecordItem = styled.li`
     padding: 10px;
     background-color: #fff;
     box-sizing: border-box;
-    border: 1px solid ${({$selected}) => $selected ? '#f76e96' : '#e5e5e5'};
+    border: 1px solid #e5e5e5;
+    border-left: ${({$selected}) => $selected ? '5px solid #f76e96!important' : ''};
     &:nth-child(2n) {
         background-color: #f5f5f5;
     }

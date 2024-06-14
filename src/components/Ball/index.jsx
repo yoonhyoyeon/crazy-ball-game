@@ -28,7 +28,9 @@ const Ball = memo(({isPlaying, pause, playerX, playerY, gameOver}) => {
     }, pause ? null : 8);
 
     const moveBall = () => {
-        if(isPlaying && isBumpedOnPlayer) gameOver();
+        if(isPlaying && isBumpedOnPlayer) {
+            gameOver();
+        }
         const newInfo = {
             ...info,
             x: info.x + info.m_x,
