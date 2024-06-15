@@ -1,8 +1,8 @@
 import * as S from './style';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, memo } from 'react';
 import logoImgFile from 'assets/img/logo_full.png';
 
-const RecordPage = () => {
+const RecordPage = memo(() => {
     const [ records, setRecords ] = useState([]);
 
     useEffect(() => {
@@ -50,6 +50,8 @@ const RecordPage = () => {
             <S.StyledLink to="/">Go Lobby</S.StyledLink>
         </>
     );
-};
+});
+
+RecordPage.displayName = 'RecordPage';
 
 export default RecordPage;

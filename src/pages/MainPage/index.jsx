@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import * as S from './style';
 import logoImgFile from 'assets/img/logo_full.png';
 
-const MainPage = ({gameReset}) => {
+const MainPage = memo(({gameReset}) => {
     return (
         <>
             <S.LogoImg src={logoImgFile} />
@@ -10,6 +11,8 @@ const MainPage = ({gameReset}) => {
             <S.StyledLink to='/color'>Set Player Color</S.StyledLink>
         </>
     );
-};
+});
+
+MainPage.displayName = 'MainPage';
 
 export default MainPage;

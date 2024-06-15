@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import * as S from './style';
 import { useNavigate } from 'react-router-dom';
 
-const ResultPage = ({time}) => {
+const ResultPage = memo(({time}) => {
     const navigate = useNavigate();
     const submitScore = () => {
         const data = localStorage.getItem('crazyball_records') ? JSON.parse(localStorage.getItem('crazyball_records')) : [];
@@ -28,6 +29,8 @@ const ResultPage = ({time}) => {
             <S.StyledLink to="/">Go Lobby</S.StyledLink>
         </>
     );
-};
+});
+
+ResultPage.displayName = 'ResultPage';
 
 export default ResultPage;

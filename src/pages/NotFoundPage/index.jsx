@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import * as S from './style';
 import logoImgFile from 'assets/img/logo.png';
 
-const NotFoundPage = () => {
+const NotFoundPage = memo(() => {
     return (
         <>
             <S.LogoImg src={logoImgFile} />
@@ -10,6 +11,8 @@ const NotFoundPage = () => {
             <S.StyledLinkMargin50 to="/">Go Lobby</S.StyledLinkMargin50>
         </>
     );
-};
+});
+
+NotFoundPage.displayName = 'NotFoundPage';
 
 export default NotFoundPage;
