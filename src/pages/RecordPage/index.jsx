@@ -1,50 +1,46 @@
 import * as S from './style';
-import { useEffect, useState, useMemo, memo } from 'react';
+import { useEffect, useState, memo, useMemo, useCallback } from 'react';
 import logoImgFile from 'assets/img/logo_full.png';
+import RecordList from './components/RecordList';
+import { useDidMountEffect } from 'hooks';
 
 const RecordPage = memo(() => {
     const [ records, setRecords ] = useState([]);
-
     useEffect(() => {
+        console.log('불러오깅');
         const data = JSON.parse(localStorage.getItem('crazyball_records'));
         setRecords(data ? data.map((v) => ({ ...v, selected: false })) : []);
+    }, [])
+    useDidMountEffect(() => {
+        localStorage.setItem('crazyball_records', JSON.stringify(records));
+        console.log(records, '동기화');
+    }, [records.length]);
+
+    const toggleItem = useCallback((idx) => {
+        setRecords((prev) => {
+            const newRecords = [ ...prev ];
+            newRecords[idx] = { ...prev[idx] };
+            newRecords[idx].selected = !prev[idx].selected;
+            return newRecords;
+        });
     }, []);
+    const deleteSelectedItems = useCallback(() => {
+        let newRecords;
+        setRecords((prev) => {
+            newRecords = prev.filter((record) => !record.selected);
+            return newRecords;
+        });
+    }, []);
+    const NotSelectedItems = useMemo(() => records.filter((record) => record.selected), [records]);
 
-    const toggleItem = (idx) => {
-        const newRecords = [ ...records ];
-        newRecords[idx] = { ...records[idx] };
-        newRecords[idx].selected = !newRecords[idx].selected;
-        setRecords(newRecords);
-        console.log(newRecords);
-    }
-    const deleteSelectedItems = () => {
-        const newRecords = records.filter((record, idx) => !record.selected);
-        setRecords(newRecords);
-
-        localStorage.setItem('crazyball_records', JSON.stringify(newRecords));
-    }
-    const printRecords = useMemo(() => {
-        return records.length>0 ? records.map((record, idx) => (
-            <S.RecordItem key={idx} $selected={record.selected} onClick={() => toggleItem(idx)}>
-                    <S.RecordRankText>#{idx+1}</S.RecordRankText>
-                    <S.RecordText>{record.name}</S.RecordText>
-                    <S.RecordText>{record.time}</S.RecordText>
-            </S.RecordItem>
-        )) : <S.NoData>There is no record.</S.NoData>;
-    }, [records]);
     return (
         <>
             <S.LogoImg src={logoImgFile} />
-            <S.RecordList>
-                <S.RecordLabel>
-                    <S.RecordRankText>Rank</S.RecordRankText>
-                    <S.RecordText>Name</S.RecordText>
-                    <S.RecordText>Score</S.RecordText>
-                </S.RecordLabel>
-                {printRecords}
-            </S.RecordList>
+
+            <RecordList records={records} toggleItem={toggleItem} />
+
             {
-                records.filter((record, idx) => record.selected).length>0 ? 
+                NotSelectedItems.length>0 ? 
                 <S.StyledLink as="span" onClick={deleteSelectedItems}>Delete selected records</S.StyledLink> : null
             }
             <S.StyledLink to="/">Go Lobby</S.StyledLink>
