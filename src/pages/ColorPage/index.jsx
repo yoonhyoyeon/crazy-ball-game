@@ -7,7 +7,8 @@ const ColorPage = memo(({playerInfo, setPlayerInfo}) => {
     
     useEffect(() => {
         setColor(playerInfo.bgColor);
-    }, []);
+    }, [playerInfo.bgColor]);
+    
     const changeColor = () => {
         setPlayerInfo((prev) => ({
             ...prev,

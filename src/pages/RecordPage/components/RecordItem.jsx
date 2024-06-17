@@ -6,7 +6,7 @@ const RecordItem = memo(({info, idx, toggleItem}) => {
         <S.RecordItem onClick={() => toggleItem(idx)} $selected={info.selected}>
                 <S.RecordRankText>#{idx+1}</S.RecordRankText>
                 <S.RecordText>{info.name}</S.RecordText>
-                <S.RecordText>{info.time}</S.RecordText>
+                <S.RecordText>{info.time}sec</S.RecordText>
         </S.RecordItem>
     );
 });

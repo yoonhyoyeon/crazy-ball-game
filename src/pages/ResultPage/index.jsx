@@ -1,9 +1,13 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import * as S from './style';
 import { useNavigate } from 'react-router-dom';
 
-const ResultPage = memo(({time}) => {
+const ResultPage = memo(({isFinished, time}) => {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if(!isFinished) navigate('/');
+    }, [])
     const submitScore = () => {
         const data = localStorage.getItem('crazyball_records') ? JSON.parse(localStorage.getItem('crazyball_records')) : [];
         const name = prompt('Please enter the name to record your score.');

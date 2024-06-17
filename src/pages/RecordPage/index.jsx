@@ -7,13 +7,11 @@ import { useDidMountEffect } from 'hooks';
 const RecordPage = memo(() => {
     const [ records, setRecords ] = useState([]);
     useEffect(() => {
-        console.log('불러오깅');
         const data = JSON.parse(localStorage.getItem('crazyball_records'));
         setRecords(data ? data.map((v) => ({ ...v, selected: false })) : []);
     }, [])
     useDidMountEffect(() => {
         localStorage.setItem('crazyball_records', JSON.stringify(records));
-        console.log(records, '동기화');
     }, [records.length]);
 
     const toggleItem = useCallback((idx) => {
