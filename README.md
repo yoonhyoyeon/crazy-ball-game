@@ -20,7 +20,7 @@ React, styled-component, React-Router-Dom을 실제 프로젝트에 사용해보
 
 ### 2. 결과 페이지
 
-게임의 결과를 출력하고 기록을 저장할 수 있다.
+게임의 결과를 출력하고 기록을 저장할 수 있다. (기록은 localStorage에 저장)
 
 <img width="600" src="https://github.com/yoonhyoyeon/crazy-ball-game/assets/30565205/495adde3-d7a8-4172-806c-167cc26b9cc7" />
 
