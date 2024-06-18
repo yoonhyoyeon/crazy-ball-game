@@ -16,6 +16,7 @@ export const RecordList = styled.ol`
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    margin-bottom: 10px;
 `;
 export const RecordRankText = styled.span`
     flex: 1;
