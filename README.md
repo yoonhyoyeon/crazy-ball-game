@@ -1,6 +1,44 @@
-# Getting Started with Create React App
+# crazy-ball-game
+<img width="300" src="https://github.com/yoonhyoyeon/crazy-ball-game/blob/main/src/assets/img/logo_full.png?raw=true" /><br>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 프로젝트 소개
+
+벽에 부딪히며 돌아다니는 공들을 피하는 게임. 
+
+공은 시간이 지날수록 개수가 늘어난다.
+
+### 프로젝트 목적
+
+React, styled-component, React-Router-Dom을 실제 프로젝트에 사용해보기 위해 개발하였다.
+
+## 기능
+### 1. 플레이 화면
+
+* 마우스 좌클릭으로 플레이어 조작
+* [ESC] 를 누르면 게임이 일시정지 된다.
+
+<img width="600" src="https://github.com/yoonhyoyeon/crazy-ball-game/assets/30565205/19657ff7-6780-4db8-806d-17338766434a" />
+
+### 2. 결과 페이지
+
+게임의 결과를 출력하고 기록을 저장할 수 있다.
+
+<img width="600" src="https://github.com/yoonhyoyeon/crazy-ball-game/assets/30565205/495adde3-d7a8-4172-806c-167cc26b9cc7" />
+
+### 3. 기록 페이지
+
+저장된 기록을 열람, 삭제할 수 있다.
+
+<img width="600" src="https://github.com/yoonhyoyeon/crazy-ball-game/assets/30565205/d996f9db-bbae-4cef-af72-e925ba332ef1" />
+
+### 4. 색상 선택 페이지
+
+플레이어의 색상을 변경할 수 있다. (localStorage에 저장)
+
+<img width="600" src="https://github.com/yoonhyoyeon/crazy-ball-game/assets/30565205/c4ed1313-506f-4add-aa01-8e5a49bd43c9" />
+
+
+
 
 ## Available Scripts
 
@@ -39,32 +77,4 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+</div>
