@@ -1,6 +1,6 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { MAX_X, MAX_Y, PLAYER_SPEED, BALL_SPEED, getMoveInfo, PLAYER_SIZE, randomNum, randomColor, BALL_SIZE } from 'utils';
+import { MAX_X, MAX_Y, PLAYER_SPEED, getMoveInfo, PLAYER_SIZE } from 'utils';
 import { useInterval } from 'hooks';
 import MainPage from 'pages/MainPage';
 import RecordPage from 'pages/RecordPage';
