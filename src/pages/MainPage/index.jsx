@@ -2,7 +2,7 @@ import { memo } from 'react';
 import * as S from './style';
 import logoImgFile from 'assets/img/logo_full.png';
 
-const MainPage = memo(({gameStart}) => {
+const MainPage = (({gameStart}) => {
     return (
         <>
             <S.LogoImg src={logoImgFile} />

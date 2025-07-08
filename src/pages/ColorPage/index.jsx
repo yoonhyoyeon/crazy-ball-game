@@ -1,8 +1,8 @@
-import { useEffect, useState, memo } from 'react';
+import { useEffect, useState } from 'react';
 import * as S from './style';
 
 
-const ColorPage = memo(({playerInfo, setPlayerInfo}) => {
+const ColorPage = ({playerInfo, setPlayerInfo}) => {
     const [ color, setColor ] = useState('');
     
     useEffect(() => {
@@ -27,8 +27,6 @@ const ColorPage = memo(({playerInfo, setPlayerInfo}) => {
             <S.StyledLink to="/">Go Lobby</S.StyledLink>
         </>
     );
-});
-
-ColorPage.displayName = 'ColorPage';
+};
 
 export default ColorPage;

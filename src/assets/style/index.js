@@ -24,9 +24,12 @@ export const StyledLink = styled(Link)`
     border: 2px solid #f76e96;
     cursor: pointer;
     transition: all.2s ease;
+    pointer-events: ${({$disabled}) => $disabled ? 'none' : 'auto'};
+    opacity: ${({$disabled}) => $disabled ? 0.5 : 1};
+    cursor: ${({$disabled}) => $disabled ? 'not-allowed' : 'pointer'};
     &:hover {
-        background-color: #f76e96;
-        color: #fff;
-        font-weight: bold;
+        background-color: ${({$disabled}) => $disabled ? '#fff' : '#f76e96'};
+        color: ${({$disabled}) => $disabled ? '#f76e96' : '#fff'};
+        font-weight: ${({$disabled}) => $disabled ? 'normal' : 'bold'};
     }
 `;

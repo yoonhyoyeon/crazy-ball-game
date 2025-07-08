@@ -1,10 +1,10 @@
 import * as S from './style';
-import { useEffect, useState, memo, useMemo, useCallback } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import logoImgFile from 'assets/img/logo_full.png';
 import RecordList from './components/RecordList';
 import { useDidMountEffect } from 'hooks';
 
-const RecordPage = memo(() => {
+const RecordPage = () => {
     const [ records, setRecords ] = useState([]);
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem('crazyball_records'));
@@ -36,16 +36,14 @@ const RecordPage = memo(() => {
             <S.LogoImg src={logoImgFile} />
 
             <RecordList records={records} toggleItem={toggleItem} />
-
             {
-                NotSelectedItems.length>0 ? 
-                <S.StyledLink as="span" onClick={deleteSelectedItems}>Delete selected records</S.StyledLink> : null
+                <S.StyledLink as="span" $disabled={NotSelectedItems.length===0} onClick={NotSelectedItems.length===0 ? undefined : deleteSelectedItems}>
+                    Delete selected records
+                </S.StyledLink>
             }
             <S.StyledLink to="/">Go Lobby</S.StyledLink>
         </>
     );
-});
-
-RecordPage.displayName = 'RecordPage';
+};
 
 export default RecordPage;

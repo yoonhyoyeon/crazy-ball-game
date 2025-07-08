@@ -1,8 +1,8 @@
-import { memo, useEffect } from 'react';
+import { useEffect } from 'react';
 import * as S from './style';
 import { useNavigate } from 'react-router-dom';
 
-const ResultPage = memo(({isFinished, time}) => {
+const ResultPage = ({isFinished, time}) => {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -33,8 +33,6 @@ const ResultPage = memo(({isFinished, time}) => {
             <S.StyledLink to="/">Go Lobby</S.StyledLink>
         </>
     );
-});
-
-ResultPage.displayName = 'ResultPage';
+};
 
 export default ResultPage;
