@@ -7,7 +7,8 @@ const ResultPage = ({isFinished, time}) => {
 
     useEffect(() => {
         if(!isFinished) navigate('/');
-    }, [])
+    }, [isFinished, navigate]);
+
     const submitScore = () => {
         const data = localStorage.getItem('crazyball_records') ? JSON.parse(localStorage.getItem('crazyball_records')) : [];
         const name = prompt('Please enter the name to record your score.');

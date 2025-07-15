@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { MAX_X, MAX_Y, PLAYER_SPEED, getMoveInfo, PLAYER_SIZE } from 'utils';
 import { useInterval } from 'hooks';
@@ -23,9 +23,14 @@ const CrazyBall = () => {
     const [pause, setPause] = useState(false);
     const navigate = useNavigate();
     
-    const handleKeyDown = (e) => {
+    const pauseGame = useCallback(() => {
+        setPause((prev) => !prev);
+    }, []);
+
+    const handleKeyDown = useCallback((e) => {
         if(e.code==='Escape') pauseGame();
-    }
+    }, [pauseGame]); // 키 입력 핸들러
+
     useEffect(() => {
         window.addEventListener('keydown', handleKeyDown);
         if(localStorage.getItem('playerColor')) {
@@ -35,7 +40,7 @@ const CrazyBall = () => {
             }));
         }
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, []);
+    }, [handleKeyDown]);
 
     useInterval(() => {
         if((clickPos.x>=playerInfo.x-1 && clickPos.x<=playerInfo.x+PLAYER_SIZE+1 && clickPos.y>=playerInfo.y-1 && clickPos.y<=playerInfo.y+PLAYER_SIZE+1) || checkPlayerOut()) {
@@ -106,10 +111,6 @@ const CrazyBall = () => {
         setIsFinished(false);
         setIsPlaying(true);
         setPause(false);
-    }
-
-    const pauseGame = () => {
-        setPause((prev) => !prev);
     }
 
     return (
