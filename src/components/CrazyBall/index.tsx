@@ -10,35 +10,42 @@ import NotFoundPage from 'pages/NotFoundPage';
 import Timer from 'components/Timer';
 import Player from 'components/Player';
 import Ball from 'components/Ball';
+import { Pos, PlayerInfo } from 'types/game.types';
 
 import * as S from './style';
 
 const CrazyBall = () => {
-    const [isFinished, setIsFinished] = useState(false);
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [clickPos, setClickPos] = useState({x: null, y: null});
-    const [playerInfo, setPlayerInfo] = useState({x: MAX_X/2, y: MAX_Y/2, moving: false, m_x: 0, m_y: 0, speed: PLAYER_SPEED, die: false, bgColor: '#ff0000'});
-    const [ballCnt, setBallCnt] = useState(1);
-    const [time, setTime] = useState(0);
-    const [pause, setPause] = useState(false);
+    const [isFinished, setIsFinished] = useState<boolean>(false);
+    const [isPlaying, setIsPlaying] = useState<boolean>(false);
+    const [clickPos, setClickPos] = useState<Pos>({x: 0, y: 0});
+    const [playerInfo, setPlayerInfo] = useState<PlayerInfo>({x: MAX_X/2, y: MAX_Y/2, moving: false, m_x: 0, m_y: 0, speed: PLAYER_SPEED, die: false, bgColor: '#ff0000'});
+    const [ballCnt, setBallCnt] = useState<number>(1);
+    const [time, setTime] = useState<number>(0);
+    const [pause, setPause] = useState<Boolean>(false);
     const navigate = useNavigate();
     
     const pauseGame = useCallback(() => {
         setPause((prev) => !prev);
     }, []);
 
-    const handleKeyDown = useCallback((e) => {
+    const handleKeyDown = useCallback((e:KeyboardEvent) => {
         if(e.code==='Escape') pauseGame();
     }, [pauseGame]); // 키 입력 핸들러
 
+    // 이벤트 리스너 등록 useEffect와 분리하여 역할 분리
+    // storedColor 변수 사용으로 localStorage 접근 최소화 및 타입 추론 유도
     useEffect(() => {
-        window.addEventListener('keydown', handleKeyDown);
-        if(localStorage.getItem('playerColor')) {
+        const storedColor = localStorage.getItem('playerColor');
+        if(storedColor) {
             setPlayerInfo((prev) => ({
                 ...prev,
-                bgColor: localStorage.getItem('playerColor'),
+                bgColor: storedColor
             }));
         }
+    });
+    
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [handleKeyDown]);
 
@@ -118,7 +125,7 @@ const CrazyBall = () => {
             <Timer time={time} />
             <Player info={playerInfo} setInfo={setPlayerInfo}/>
             {
-                Array(ballCnt).fill().map((v, i) => <Ball isPlaying={isPlaying} pause={pause} playerX={playerInfo.x} playerY={playerInfo.y} gameOver={gameOver} key={i}/>)
+                Array(ballCnt).fill(undefined).map((v, i) => <Ball isPlaying={isPlaying} pause={pause} playerX={playerInfo.x} playerY={playerInfo.y} gameOver={gameOver} key={i}/>)
             }
             {
                 isPlaying ? null :
