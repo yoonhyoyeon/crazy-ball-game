@@ -2,15 +2,15 @@ import * as S from './style';
 import { useEffect, useState, useMemo, useCallback } from 'react';
 import logoImgFile from 'assets/img/logo_full.png';
 import RecordList from './components/RecordList';
-import { useDidMountEffect } from 'hooks';
+import { useEffectAfterMount } from 'hooks';
 
 const RecordPage = () => {
     const [ records, setRecords ] = useState([]);
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem('crazyball_records'));
         setRecords(data ? data.map((v) => ({ ...v, selected: false })) : []);
-    }, [])
-    useDidMountEffect(() => {
+    }, []);
+    useEffectAfterMount(() => {
         localStorage.setItem('crazyball_records', JSON.stringify(records));
     }, [records.length]);
 

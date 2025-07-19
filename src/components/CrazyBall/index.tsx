@@ -21,7 +21,7 @@ const CrazyBall = () => {
     const [playerInfo, setPlayerInfo] = useState<PlayerInfo>({x: MAX_X/2, y: MAX_Y/2, moving: false, m_x: 0, m_y: 0, speed: PLAYER_SPEED, die: false, bgColor: '#ff0000'});
     const [ballCnt, setBallCnt] = useState<number>(1);
     const [time, setTime] = useState<number>(0);
-    const [pause, setPause] = useState<Boolean>(false);
+    const [pause, setPause] = useState<boolean>(false);
     const navigate = useNavigate();
     
     const pauseGame = useCallback(() => {
@@ -75,7 +75,7 @@ const CrazyBall = () => {
         if(time%3===0) addBall();
     }, isPlaying&&!pause ? 1000 : null); // 타이머 & 3초간격 공 생성 interval
 
-    const onClickGround = (e) => {
+    const onClickGround = (e:React.MouseEvent<HTMLDivElement>) => {
         setClickPos({
             x: e.nativeEvent.offsetX,
             y: e.nativeEvent.offsetY

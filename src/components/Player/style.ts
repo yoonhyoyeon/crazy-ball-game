@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 
-export const PlayerCircle = styled.div`
+interface PlayerCircleProps {
+    $size?: number;
+    $bgColor?: string;
+    $die?: boolean;
+}
+
+export const PlayerCircle = styled.div<PlayerCircleProps>`
     position: absolute;
     width: ${({$size}) => $size ? $size : '20'}px;
     height: ${({$size}) => $size ? $size : '20'}px;

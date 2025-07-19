@@ -1,7 +1,7 @@
 import * as S from './style';
 import { memo } from 'react';
 
-const Timer = memo(({time}) => <S.TimerLayout>{time}</S.TimerLayout>);
+const Timer = memo(({time}:{time:number}) => <S.TimerLayout>{time}</S.TimerLayout>);
 
 Timer.displayName = 'Timer';
 
